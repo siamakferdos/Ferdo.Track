@@ -1,0 +1,40 @@
+﻿
+
+@model Ferdo.Track.Areas.Identity.ViewModel.LoginViewModel
+
+<html>
+<head>
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+<body>
+    <h1>ورود به نرم افزار</h1>
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <table>
+            <tr>
+                <td><label >پست الکترونیکی</label></td>
+                <td><input asp-for="UserName" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Password">کلمه عبور</label></td>
+                <td><input asp-for="Password" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="RememberMe">مرا به خاطر بسپار!</label></td>
+                <td><input asp-for="RememberMe" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit"
+                           value="ورود" />
+                </td>
+            </tr>
+        </table>
+        <div asp-validation-summary="All"></div>
+    </form>
+</body>
+</html>
+
+
+

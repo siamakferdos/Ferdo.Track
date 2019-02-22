@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-Ferdo.Track-9B1BCB14-F041-4687-9404-2BF297345574</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Boolood.Configuration\Ferdo.Track.Configuration.csproj" />
+    <ProjectReference Include="..\Boolood.Persistence\Ferdo.Track.Persistence.csproj" />
+    <ProjectReference Include="..\Boolood.Services\Ferdo.Track.Services.csproj" />
+    <ProjectReference Include="..\Common.ApplicationIdentity\Common.ApplicationIdentity.csproj" />
+  </ItemGroup>
+
+</Project>
