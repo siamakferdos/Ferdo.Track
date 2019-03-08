@@ -1,4 +1,5 @@
-﻿using Common.ApplicationIdentity;
+﻿using System;
+using Common.ApplicationIdentity;
 using Ferdo.Track.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -49,7 +50,22 @@ namespace Ferdo.Track
 
             new Registrar().Register(services);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+            });
+
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(jsonOptions =>
+                {
+                    jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                }); ;
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -83,9 +99,30 @@ namespace Ferdo.Track
             initializerService.Init();
             app.UseAuthentication();
 
-           
+            app.UseSession();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "areas",
+            //        template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            //    );
+            //});
+
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "areas",
+            //        template: "api/{controller}/{action}",
+            //        defaults: new { area = "API", controller = "Location" }
+            //    );
+            //});
+
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    "areaRoute", 
+                    "{area:exists}/{controller=Location}/{action}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

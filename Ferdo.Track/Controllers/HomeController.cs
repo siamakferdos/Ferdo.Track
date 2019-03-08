@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.ApplicationIdentity;
+using Ferdo.Track.Framework.Core.Query;
 using Microsoft.AspNetCore.Mvc;
 using Ferdo.Track.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,23 +14,26 @@ namespace Ferdo.Track.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUnderTrackQuery _underTrackQuery;
 
         public HomeController(UserManager<ApplicationUser>
-            userManager)
+            userManager, IUnderTrackQuery underTrackQuery)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
+            _underTrackQuery = underTrackQuery;
         }
 
 
         [Authorize]
         public IActionResult Index()
         {
-            ApplicationUser user = userManager.GetUserAsync
+            TempData["UnderTrackType"] = _underTrackQuery.GetUnderTrackTypes();
+            ApplicationUser user = _userManager.GetUserAsync
                 (HttpContext.User).Result;
 
             ViewBag.Message = $"Welcome {user.FirstName} {user.LastName}!";
-            if (userManager.IsInRoleAsync(user, "NormalUser").Result)
+            if (_userManager.IsInRoleAsync(user, "NormalUser").Result)
             {
                 ViewBag.RoleMessage = "You are a NormalUser.";
             }

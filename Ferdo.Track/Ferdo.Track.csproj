@@ -21,4 +21,17 @@
     <ProjectReference Include="..\Common.ApplicationIdentity\Common.ApplicationIdentity.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Api\Models\" />
+    <Folder Include="Areas\Api\Views\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\contexts\undertrack\undertrack.js" />
+    <None Include="wwwroot\contexts\undertrack\undertrack-api.js" />
+    <None Include="wwwroot\contexts\undertrack\undertrack.tables.js" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,48 @@
+﻿<div class="pos-f-t">
+    <nav class="navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+            <span class="text-white"> <a data-toggle="modal" data-target=".users-modal" href="#">مدیریت کاربران</a></span>
+            <span class="text-white"> <a data-toggle="modal" data-target=".center-modal" href="#">مدیریت مراکز</a></span>
+            <div class="dropdown-divider"></div>
+            <span class="text-white"> <a class="dropdown-item" data-toggle="modal" data-target=".under-track-modal" href="#">مدیریت افراد و مسایط نقلیه</a></span>
+            <span class="text-white"> <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-lg" href="#">تنظیمات</a></span>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    #navbarToggleExternalContent {
+        text-align: right;
+    }
+    .modal-content {
+        padding: 5%;
+    }
+</style>
+
+<div class="modal fade center-modal" tabindex="-1" role="dialog" aria-labelledby="center-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <partial name="~/Views/Center/_CenterPartial.cshtml" />
+        </div>
+    </div>
+</div>
+<div class="modal fade users-modal" tabindex="-1" role="dialog" aria-labelledby="users-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <partial name="~/Views/Account/Register.cshtml" />
+        </div>
+    </div>
+</div>
+<div class="modal fade under-track-modal" tabindex="-1" role="dialog" aria-labelledby="under-track-modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <partial name="~/Views/UnderTrack/Index.cshtml" />
+        </div>
+    </div>
+</div>

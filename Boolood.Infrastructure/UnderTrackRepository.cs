@@ -20,6 +20,26 @@ namespace Ferdo.Track.Infrastructure
             return GetAllEntities<UnderTrackType>();
         }
 
+        public void AddGroup(UnderTrackGroup underTrackGroup)
+        {
+            AddEntity(underTrackGroup);
+        }
+
+        public void AddUnderTrack(UnderTrack underTrack)
+        {
+            AddEntity(underTrack);
+        }
+
+        public void UpdateGroupUnderTrackMembers(List<UnderTrackGroupMember> underTrackGroupMembers)
+        {
+            AddEntities(underTrackGroupMembers);
+        }
+
+        public Guid GetGuid(string imei)
+        {
+            return GetEntity<UnderTrack>(l => l.Imei == imei).Id;
+        }
+
         public UnderTrackRepository(AppDbContext dbContext) : base(dbContext)
         {
         }

@@ -7,6 +7,6 @@ namespace Ferdo.Track.Framework.Core.Services
 {
     public interface ILocationService
     {
-        
+        void AddLocations(List<LocationDto> locationDtos);
     }
 }

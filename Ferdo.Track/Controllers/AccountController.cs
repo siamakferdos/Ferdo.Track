@@ -1,5 +1,6 @@
 ﻿using Common.ApplicationIdentity;
 using Ferdo.Track.Areas.Identity.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -84,6 +85,7 @@ namespace Ferdo.Track.Controllers
 
                 if (result.Succeeded)
                 {
+                    HttpContext.Session.SetString("UserName", obj.UserName);
                     return RedirectToAction("Index", "Home");
                 }
             }

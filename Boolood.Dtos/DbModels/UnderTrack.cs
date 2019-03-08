@@ -8,10 +8,12 @@ namespace Ferdo.Track.Model.DbModels
     {
         public string Name { get; set; }
         public Guid UnderTrackTypeId { get; set; }
+        public Guid CenterId { get; set; }
         public string Imei { get; set; }
         public string CellNumber { get; set; }
 
         public UnderTrackType UnderTrackType { get; set; }
+        public UnderTrackGroup UnderTrackGroup { get; set; }
 
     }
 }

@@ -13,6 +13,6 @@ namespace Ferdo.Track.Model.DbModels
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public float Speed { get; set; }
-        public float Time { get; set; }
+        public long Time { get; set; }
     }
 }

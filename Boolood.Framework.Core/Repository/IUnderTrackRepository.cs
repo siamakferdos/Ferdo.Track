@@ -9,5 +9,9 @@ namespace Ferdo.Track.Framework.Core.Repository
     {
         void AddTypes(List<UnderTrackType> underTrackTypes);
         List<UnderTrackType> GetTypes();
+        void AddGroup(UnderTrackGroup underTrackGroup);
+        void AddUnderTrack(UnderTrack underTrack);
+        void UpdateGroupUnderTrackMembers(List<UnderTrackGroupMember> underTrackGroupMembers);
+        Guid GetGuid(string imei);
     }
 }

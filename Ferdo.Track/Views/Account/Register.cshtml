@@ -1,20 +1,15 @@
 ﻿@model Ferdo.Track.Areas.Identity.ViewModel.RegisterViewModel
 
-@{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
-}
-
-
-
-<script src="~/Scripts/jquery.js"></script>
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js">
-</script>
-
-<h1>Register</h1>
 <form asp-controller="Account" asp-action="Register" method="post">
     <table>
+        <tr>
+            <td><label asp-for="FirstName"></label></td>
+            <td><input asp-for="FirstName" /></td>
+        </tr>
+        <tr>
+            <td><label asp-for="LastName"></label></td>
+            <td><input asp-for="LastName" /></td>
+        </tr>
         <tr>
             <td><label asp-for="UserName"></label></td>
             <td><input asp-for="UserName" /></td>
@@ -31,10 +26,12 @@
             <td><label asp-for="Email"></label></td>
             <td><input asp-for="Email" /></td>
         </tr>
-       
+
         <tr>
-            <td colspan="2"><input type="submit" 
-                                   value="Register" /></td>
+            <td colspan="2">
+                <input type="submit"
+                       value="Register" />
+            </td>
         </tr>
     </table>
     <div asp-validation-summary="All" ></div>

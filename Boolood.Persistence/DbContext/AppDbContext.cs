@@ -21,5 +21,6 @@ namespace Ferdo.Track.Persistence.DbContext
         public DbSet<Center> Centers { get; set; }
         public DbSet<UnderTrackType> UnderTrackTypes { get; set; }
         public DbSet<TrackSetting> UnderTrackSettings { get; set; }
+        public DbSet<UnderTrackGroupMember> UnderTrackGroupMembers { get; set; }
     }
 }

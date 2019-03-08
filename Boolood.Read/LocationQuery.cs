@@ -31,7 +31,7 @@ namespace Ferdo.Track.Read
                 {
                     Accuracy = l.LocationPoints.Accuracy,
                     Altitude = l.LocationPoints.Altitude,
-                    CreationTime = l.LocationPoints.CreationDate,
+                    CreationDate = l.LocationPoints.CreationDate,
                     Imei = l.LocationPoints.Imei,
                     Latitude = l.LocationPoints.Latitude,
                     Longitude = l.LocationPoints.Longitude,

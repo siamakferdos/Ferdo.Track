@@ -42,9 +42,18 @@ namespace Ferdo.Track.Framework.Repository
             return GetAppDbContext().Find<T>(id);
         }
 
+        protected T GetEntity<T>(Func<T, bool> predicate) where T : EntityBase
+        {
+            return GetAppDbContext().Set<T>().SingleOrDefault(predicate);
+        }
+
         protected List<T> GetAllEntities<T>() where T : EntityBase
         {
             return GetAppDbContext().Set<T>().ToList();
+        }
+        protected List<T> GetAllEntities<T>(Func<T, bool> predicate) where T : EntityBase
+        {
+            return GetAppDbContext().Set<T>().Where(predicate).ToList();
         }
     }
 }

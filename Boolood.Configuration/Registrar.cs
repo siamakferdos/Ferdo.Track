@@ -9,6 +9,7 @@ using Ferdo.Track.Read;
 using Ferdo.Track.Services.Initial;
 using Common.ApplicationIdentity;
 using Ferdo.Track.Framework.Core.Repository;
+using Ferdo.Track.Services.ConfigurationContext;
 using Ferdo.Track.Services.LocationContext;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,12 +27,20 @@ namespace Ferdo.Track.Configuration
             services.AddScoped<ServiceLocator>();
 
             services.AddScoped<IIdentityRepository, IdentityRepository>();
-            services.AddScoped<ILocationRepository, LocationRepository>();
+            
             services.AddScoped<IUnderTrackRepository, UnderTrackRepository>();
+            services.AddScoped<IUnderTrackQuery, UnderTrackQuery>();
+
             services.AddScoped<ITrackSettingRepository, TrackSettingRepository>();
 
+            services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<ILocationQuery, LocationQuery>();
             services.AddScoped<ILocationService, LocationService>();
+            
+            services.AddScoped<ICenterService, CenterService>();
+            services.AddScoped<ICenterRepository, CenterRepository>();
+            services.AddScoped<IUnderTrackService, UnderTrackService>();
+
 
             services.AddScoped<IInitialService, InitializerService>();
 

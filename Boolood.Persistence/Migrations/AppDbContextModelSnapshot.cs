@@ -57,7 +57,7 @@ namespace Ferdo.Track.Persistence.Migrations
 
                     b.Property<float>("Speed");
 
-                    b.Property<float>("Time");
+                    b.Property<long>("Time");
 
                     b.Property<Guid>("UnderTrackId");
 
@@ -117,6 +117,8 @@ namespace Ferdo.Track.Persistence.Migrations
 
                     b.Property<string>("CellNumber");
 
+                    b.Property<Guid>("CenterId");
+
                     b.Property<DateTimeOffset>("CreationDate");
 
                     b.Property<string>("Imei");
@@ -149,15 +151,33 @@ namespace Ferdo.Track.Persistence.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<Guid?>("UnderTrackTypeId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CenterId");
 
-                    b.HasIndex("UnderTrackTypeId");
-
                     b.ToTable("UnderTrackGroups");
+                });
+
+            modelBuilder.Entity("Ferdo.Track.Model.DbModels.UnderTrackGroupMember", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTimeOffset>("CreationDate");
+
+                    b.Property<Guid>("GroupId");
+
+                    b.Property<Guid?>("UnderTrackGroupId");
+
+                    b.Property<Guid>("UnderTrackId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UnderTrackGroupId");
+
+                    b.HasIndex("UnderTrackId");
+
+                    b.ToTable("UnderTrackGroupMembers");
                 });
 
             modelBuilder.Entity("Ferdo.Track.Model.DbModels.UnderTrackType", b =>
@@ -187,7 +207,7 @@ namespace Ferdo.Track.Persistence.Migrations
 
             modelBuilder.Entity("Ferdo.Track.Model.DbModels.UnderTrack", b =>
                 {
-                    b.HasOne("Ferdo.Track.Model.DbModels.UnderTrackGroup")
+                    b.HasOne("Ferdo.Track.Model.DbModels.UnderTrackGroup", "UnderTrackGroup")
                         .WithMany("UnderTracks")
                         .HasForeignKey("UnderTrackGroupId");
 
@@ -203,10 +223,18 @@ namespace Ferdo.Track.Persistence.Migrations
                         .WithMany("UnderTrackGroups")
                         .HasForeignKey("CenterId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.HasOne("Ferdo.Track.Model.DbModels.UnderTrackType", "UnderTrackType")
+            modelBuilder.Entity("Ferdo.Track.Model.DbModels.UnderTrackGroupMember", b =>
+                {
+                    b.HasOne("Ferdo.Track.Model.DbModels.UnderTrackGroup", "UnderTrackGroup")
                         .WithMany()
-                        .HasForeignKey("UnderTrackTypeId");
+                        .HasForeignKey("UnderTrackGroupId");
+
+                    b.HasOne("Ferdo.Track.Model.DbModels.UnderTrack", "UnderTrack")
+                        .WithMany()
+                        .HasForeignKey("UnderTrackId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

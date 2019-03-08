@@ -11,6 +11,5 @@ namespace Ferdo.Track.Model.DbModels
         public DateTimeOffset ContractExpireTime { get; set; }
         public List<UnderTrackGroup> UnderTrackGroups { get; set; }
         public List<TrackSetting> UnderTrackSettings { get; set; }
-
     }
 }

@@ -1,0 +1,52 @@
+﻿@using Ferdo.Track.Model.DbModels
+@using Ferdo.Track.Model.Dtos
+@model Ferdo.Track.Model.Dtos.UnderTrackDto
+
+<div class="row">
+    <div class="col-md-6">
+        <table id="tbl-add-underTrack"></table>
+    </div>
+    <div class="col-md-6">
+        
+        <form id="form-add-under-track" asp-action="AddUnderTrack" asp-controller="UnderTrack">
+            
+          
+            <input type="hidden" asp-for="CenterId"/>
+            <input asp-for="Id" type="hidden"/>
+            <input asp-for="CreationDate" value="null" type="hidden"/>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="UnderTrackTypeId">نوع کاربری</label>
+                <select asp-for="UnderTrackTypeId" class="form-control" required>
+                    @foreach (var underTrackType in (List<UnderTrackTypeDto>) TempData["UnderTrackType"])
+                    {
+                        <option value="@underTrackType.Id">@underTrackType.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="UnderTrackTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name">نام</label>
+                <input asp-for="Name" class="form-control" required/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Imei">کد منحصربفرد(IMEI, ...)</label>
+                <input asp-for="Imei"  class="form-control" required 
+                       oninvalid="this.setCustomValidity('Please Enter valid email')"/>
+                <span asp-validation-for="Imei" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CellNumber">شماره سیم کارت</label>
+                <input asp-for="CellNumber" class="form-control" required/>
+                <span asp-validation-for="CellNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" id="btn-save-uder-track" value="ذخیره کاربر" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>

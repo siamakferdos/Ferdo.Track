@@ -1,8 +1,206 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+<!DOCTYPE html>
+<html>
+<head>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
+
+    @*<script src="~/JavaScript/GlobalJs.js"></script>*@
+    <title>Ferdo Map</title>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" ></script>
+
+    <style>
+        .map-header {
+            position: fixed;
+            right: 0;
+            z-index: 401;
+            width: 100%;
+            background-color: white;
+        }
+
+        .map-date-range * {
+            float: right;
+        }
+
+        .map-date-range:after {
+            clear: both;
+        }
+    </style>
+
+</head>
+<body dir="rtl">
+    @Html.Partial("_Navbar")
+<div class="map-header">
+    <div class="map-date-range">
+        <label>از تاریخ</label>
+        <input type="text" id="fromDate" value="1397/10/11"/>
+
+        <label>تا تاریخ</label>
+        <input type="text" id="toDate" value="1397/10/12"/>
+
+        <button class="btn btn-primary" onclick="getPoints()" value="">برو</button>
+    </div>
 </div>
+<div id="mapid" style="width: 100%; height: 95vh;"></div>
+    
+
+<script>
+    //window.innerHeight
+    //********************************************************Basic****************************************************************
+    var l = 38.078877;
+    var h = 46.360452;
+    var zoom = 13;
+    var mymap = L.map('mapid').setView([l, h], zoom);
+    //*******To use these, at first disable multi layer part
+
+    //L.tileLayer('https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=18bbb0406ff74f6587806cc329effdb2', {
+    //L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=18bbb0406ff74f6587806cc329effdb2', {
+    L.tileLayer(
+        'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+        {
+            maxZoom: 1000,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox.streets'
+        }).addTo(mymap);
+
+
+    ////********************************************************Marker****************************************************************
+    //L.marker([l, h]).addTo(mymap).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+    ////********************************************************Shape****************************************************************
+    //L.circle([l - 0.002, h - 0.002], {
+    //    color: 'red',
+    //    fillColor: '#f03',
+    //    fillOpacity: 0.5,
+    //    radius: 150
+    //}).addTo(mymap).bindPopup("I am a circle.");
+
+    //L.polygon([
+    //    [l - 0.02, h - 0.02],
+    //    [l - 0.01, h - 0.004],
+    //    [l - 0.01, h - 0.025]
+    //]).addTo(mymap).bindPopup("I am a polygon.");
+
+    ////********************************************************Popup****************************************************************
+    //var popup = L.popup();
+    //var latlngs = [];
+    //var marker = [];
+
+    //function onMapClick(e) {
+    //    popup
+    //        .setLatLng(e.latlng)
+    //        .setContent("You clicked the map at " + e.latlng.toString())
+    //        .openOn(mymap);
+    //    console.log(e);
+    //    latlngs.push([e.latlng.lat, e.latlng.lng]);
+    //    $.each(marker,
+    //        function (index, m) {
+    //            m.setIcon(trackPoint);
+    //            //map.removeLayer(m);
+    //        });
+    //    marker.push(L.marker([e.latlng.lat, e.latlng.lng], { icon: runner }));
+    //    marker[marker.length - 1].addTo(mymap).bindPopup("New point").openPopup();
+    //    L.polyline(latlngs, { color: 'red' }).addTo(mymap);
+    //    //marker[marker.length - 1].setIcon(walker);
+    //    //mymap.fitBounds(polyline.getBounds());
+    //}
+
+    //mymap.on('click', onMapClick);
+
+    ////********************************************************Custom Marker****************************************************************
+    //var LeafIcon = L.Icon.extend({
+    //    options: {
+    //        //shadowUrl: 'leaf-shadow.png',
+    //        iconSize: [38, 95],
+    //        shadowSize: [50, 64],
+    //        iconAnchor: [22, 94],
+    //        shadowAnchor: [4, 62],
+    //        popupAnchor: [-3, -76]
+    //    }
+    //});
+
+    //var pointIcon = L.Icon.extend({
+    //    options: {
+    //        iconSize: [20, 20],
+    //        popupAnchor: [-3, -76]
+    //    }
+    //});
+
+    //var lastPointIcon = L.Icon.extend({
+    //    options: {
+    //        iconSize: [10, 20],
+    //        popupAnchor: [-3, -76]
+    //    }
+    //});
+    //var jumper = new LeafIcon({ iconUrl: 'images/jumper.png' }),
+    //    runner = new LeafIcon({ iconUrl: 'images/runner.png' }),
+    //    walker = new LeafIcon({ iconUrl: 'images/walker.png' }),
+    //    trackPoint = new pointIcon({ iconUrl: 'images/circle point.png' });
+
+    //L.marker([l + 0.02, h + 0.02], { icon: jumper }).bindPopup("I am jumping!").addTo(mymap);
+    //L.marker([l + 0.01, h + 0.01], { icon: runner }).bindPopup("I am running!").addTo(mymap);
+    //L.marker([l + 0.03, h + 0.03], { icon: walker }).bindPopup("I am walking!").addTo(mymap);
+
+
+</script>
+
+<script>
+    $(function() { getPoints(); });
+
+    var markers = null;
+    var lines = [];
+
+    function getPoints() {
+        if (markers) {
+            markers.clearLayers();
+            window.mymap.removeLayer(window.Polyline);
+            lines = [];
+        }
+        var fromDate = $("#fromDate").val();
+        var toDate = $("#toDate").val();
+
+
+        var mapPoints = [];
+        $.get("/Home/GetPoints",
+            {
+                'imei': '04c09d965c4fe346',
+                'fromDate': fromDate,
+                'toDate': toDate
+            },
+            function(points) {
+                JSON.parse(points).sort(function(a, b) { return a.Time - b.Time }).forEach(function(point) {
+                    mapPoints.push(L.marker([point.Latitude, point.Longitude])
+                        .bindPopup(`<b>${(new Date(point.Time)).toString()}</b>`)
+                    );
+                    lines.push([point.Latitude, point.Longitude]);
+                });
+
+                markers = L.layerGroup(mapPoints).addTo(mymap);
+
+
+                window.Polyline = new L.Polyline(lines);
+                window.mymap.addLayer(window.Polyline);
+
+                console.log(points.length);
+            });
+    }
+</script>
+
+
+</body>
+</html>
